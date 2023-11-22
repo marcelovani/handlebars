@@ -1,0 +1,5 @@
+main:
+  js:
+    dist/handlebars.bundle.js: {}
+  dependencies:
+    - core/drupal
