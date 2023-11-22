@@ -66,3 +66,8 @@ i.e. my_partial.handlebars
 # Troubleshooting
 - How do I know what variables are available to use in a Handlebars template?
   - You can use `{{log this }}` to list all variables in the Console.
+
+# Todo
+- Provide use cases
+- Document Helpers shipped with the module
+- Document how to alter and compile js
