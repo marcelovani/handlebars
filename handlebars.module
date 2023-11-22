@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function handlebars_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  $entity_types = [
+    'node',
+    'taxonomy_term',
+  ];
+  if (!in_array($entity->getEntityType()->id(), $entity_types)) {
+    return;
+  }
+
+  \Drupal::service('handlebars.service')->attachLibraries($build, $entity);
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function handlebars_library_info_alter(&$libraries, $extension) {
+  \Drupal::service('handlebars.service')->libraryInfoAlter($libraries, $extension);
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function handlebars_page_attachments_alter(array &$attachments) {
+  // Avoid attaching libraries on admin themes.
+  // @todo make this configurable.
+  if (\Drupal::theme()->getActiveTheme()->getName()
+    !== \Drupal::config('system.theme')->get('default')
+  ) {
+    return;
+  }
+
+  $attachments['#attached']['drupalSettings']['Handlebars']['compiledHandlebars'] = \Drupal::config('system.performance')
+    ->get('js.preprocess');
+}
