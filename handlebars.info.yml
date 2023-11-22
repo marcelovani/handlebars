@@ -1,0 +1,4 @@
+name: Handlebars
+type: module
+description: Provides integration with Handlebars JS.
+core_version_requirement: ^10
