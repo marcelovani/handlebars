@@ -152,14 +152,36 @@ class HandlebarsService {
    *   The context.
    */
   public function attachLibraries(array &$build, $context) {
+    /** @var \Drupal\Core\Asset\LibraryDiscovery $library_discovery_service */
+    // @todo Inject this
+    $library_discovery_service = \Drupal::service('library.discovery');
+
+    // Populate Handlebars libraries.
+    foreach ($this->moduleHandler->getModuleList() as $extension) {
+      $extension_name = $extension->getName();
+      $libraries = $library_discovery_service->getLibrariesByExtension($extension_name);
+      if (!empty($libraries)) {
+        foreach ($libraries as $library_name => $library) {
+          if ($library['type'] === 'handlebars_template') {
+            // Associate library with extension;
+            $handlebars_libraries[$library_name] = $extension_name;
+          }
+        }
+      }
+    }
+
     // Invoke hook to get default libraries.
-    $handlebars_libraries = $this->moduleHandler->invokeAll('handlebars_templates', [$context]);
+    $other_handlebars_libraries = $this->moduleHandler->invokeAll('handlebars_templates', [$context]);
+
+    // Merge list of libraries.
+    $handlebars_libraries = array_merge($handlebars_libraries, $other_handlebars_libraries);
 
     // Allow other modules to alter libraries.
     $this->moduleHandler->alter('handlebars_templates', $handlebars_libraries, $context);
 
-    foreach ($handlebars_libraries as $library => $module) {
-      $build['#attached']['library'][] = "$module/$library";
+    // Attach libraries.
+    foreach ($handlebars_libraries as $library_name => $extension) {
+      $build['#attached']['library'][] = "$extension/$library_name";
     }
   }
 

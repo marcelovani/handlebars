@@ -6,7 +6,7 @@
  */
 
 /**
- * Allows modules to define their own handlebars templates.
+ * Allows modules to manually define their own handlebars templates.
  * Can be used to control whether to attach templates depending on the context, i.e. entity bundle.
  *
  * @param $context
@@ -27,7 +27,7 @@ function hook_handlebars_templates($context) {
 }
 
 /**
- * Allows a different module to override the original template.
+ * Allows a different module to manually override the original template.
  * Can be used to control whether to attach templates depending on the context, i.e. entity bundle.
  *
  * @param array $templates
