@@ -1,0 +1,15 @@
+{
+  "name": "drupal/handlebars",
+  "description": "Provides integration with Handlebars JS.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "homepage": "https://www.drupal.org/project/handlebars",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/handlebars"
+  },
+  "require": {
+    "php": ">=8.1",
+    "drupal/core": "^10"
+  }
+}
