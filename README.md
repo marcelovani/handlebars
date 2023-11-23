@@ -73,11 +73,17 @@ i.e. my_partial.handlebars
   - You can use `{{log this }}` to list all variables in the Console.
 
 # Todo
+- Handlebars  - Twig for Js
+- Add Loades
 - Provide use cases
 - Document Helpers shipped with the module
 - Document how to create new Helpers
 - Document how to alter and compile js
-- Add Example modules
+- Add Example modules - connecting to local or remote js i.e. Amazon or Algolia
+  - https://paramountshop.com/collections/all.atom
+  - https://colourpop.com/collections/all.atom
+  - https://sewingmachinecentre.nz/collections/all.atom
+  - https://wisepops.com/blog/shopify-stores
 - Find a way to automate the library association without hook_handlebars_templates()
 - Explain how to use compiled version of handlebars
 -
