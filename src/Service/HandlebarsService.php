@@ -144,19 +144,19 @@ class HandlebarsService {
   }
 
   /**
-   * Attaches respective libraries to entities.
+   * Attaches Handlebars libraries.
    *
    * @param array $build
    *   The build array.
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity.
+   * @param $context
+   *   The context.
    */
-  public function attachLibraries(array &$build, EntityInterface $entity) {
+  public function attachLibraries(array &$build, $context) {
     // Invoke hook to get default libraries.
-    $handlebars_libraries = $this->moduleHandler->invokeAll('handlebars_templates', [$entity]);
+    $handlebars_libraries = $this->moduleHandler->invokeAll('handlebars_templates', [$context]);
 
     // Allow other modules to alter libraries.
-    $this->moduleHandler->alter('handlebars_templates', $handlebars_libraries, $entity);
+    $this->moduleHandler->alter('handlebars_templates', $handlebars_libraries, $context);
 
     foreach ($handlebars_libraries as $library => $module) {
       $build['#attached']['library'][] = "$module/$library";
@@ -220,8 +220,8 @@ class HandlebarsService {
       return $script;
     }
 
-    $json = json_encode($contents, JSON_UNESCAPED_UNICODE);
     // Prepare script.
+    $json = json_encode($contents, JSON_UNESCAPED_UNICODE);
     $script = "window.HandlebarsTemplates = window.HandlebarsTemplates || {};\n";
     $script .= "window.HandlebarsTemplates['$id'] = $json\n// $strings\n";
 

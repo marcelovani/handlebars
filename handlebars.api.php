@@ -7,30 +7,36 @@
 
 /**
  * Allows modules to define their own handlebars templates.
+ * Can be used to control whether to attach templates depending on the context, i.e. entity bundle.
  *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The entity being processed.
+ * @param $context
+ *   The context.
  *
  * @return array
  *   The list of libraries.
  */
-function hook_handlebars_templates(\Drupal\Core\Entity\EntityInterface $entity) {
-  // List of handlebars libraries to be attached to the entity.
-  return [
-    'article.block.foo' => 'my_module_name',
-  ];
+function hook_handlebars_templates($context) {
+  // List of handlebars libraries to be attached to the entity based on context.
+  if ($context instanceof \Drupal\Core\Entity\EntityInterface && $context->bundle() !== 'page') {
+    return [
+      'article.block.foo' => 'my_module_name',
+    ];
+  }
+
+  return [];
 }
 
 /**
  * Allows a different module to override the original template.
+ * Can be used to control whether to attach templates depending on the context, i.e. entity bundle.
  *
  * @param array $templates
  *   The array of templates to alter.
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The entity being processed.
+ * @param $context
+ *   The context.
  */
-function hook_handlebars_templates_alter(array &$templates, \Drupal\Core\Entity\EntityInterface $entity) {
-  if ($entity->bundle() !== 'page') {
+function hook_handlebars_templates_alter(array &$templates, $context) {
+  if ($context instanceof \Drupal\Core\Entity\EntityInterface && $context->bundle() !== 'page') {
     return;
   }
 
