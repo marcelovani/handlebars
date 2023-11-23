@@ -12,6 +12,7 @@ use Drupal\Core\Entity\EntityInterface;
  * Implements hook_entity_view_alter().
  */
 function handlebars_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  // @todo Make this configurable i.e. nodes, terms, every page, specific pages, etc.
   $entity_types = [
     'node',
     'taxonomy_term',
@@ -20,7 +21,9 @@ function handlebars_entity_view_alter(array &$build, EntityInterface $entity, En
     return;
   }
 
-  \Drupal::service('handlebars.service')->attachLibraries($build, $entity);
+  /** @var \Drupal\handlebars\Service\HandlebarsService $handlebars_service */
+  $handlebars_service = \Drupal::service('handlebars.service');
+  $handlebars_service->attachLibraries($build, $entity);
 }
 
 /**
@@ -42,6 +45,13 @@ function handlebars_page_attachments_alter(array &$attachments) {
     return;
   }
 
-  $attachments['#attached']['drupalSettings']['Handlebars']['compiledHandlebars'] = \Drupal::config('system.performance')
-    ->get('js.preprocess');
+  // @todo Add libraries globally based on configuration.
+  /** @var \Drupal\handlebars\Service\HandlebarsService $handlebars_service */
+  $handlebars_service = \Drupal::service('handlebars.service');
+  $handlebars_service->attachLibraries($attachments, '');
+
+  // Add drupalSettings.
+  $attachments['#attached']['drupalSettings']['Handlebars'] = [
+    'compiledHandlebars' => \Drupal::config('system.performance')->get('js.preprocess'),
+  ];
 }
