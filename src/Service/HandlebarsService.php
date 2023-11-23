@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+Use \Drupal\Core\File\FileUrlGeneratorInterface;
 
 /**
  * Service for Handlebars templates.
@@ -28,6 +29,12 @@ class HandlebarsService {
    */
   protected $moduleHandler;
 
+  /**
+   * The file URL generator.
+   *
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
 
   /**
    * The configuration factory.
@@ -48,15 +55,20 @@ class HandlebarsService {
    *
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   File system service.
+   * @param \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator
+   *   The file URL generator.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
    */
-  public function __construct(FileSystemInterface $file_system,
+  public function __construct(
+    FileSystemInterface $file_system,
+    FileUrlGeneratorInterface $file_url_generator,
     ModuleHandlerInterface $module_handler,
     ConfigFactoryInterface $config_factory) {
     $this->fileSystem = $file_system;
+    $this->fileUrlGenerator = $file_url_generator;
     $this->moduleHandler = $module_handler;
     $this->configFactory = $config_factory;
   }
@@ -71,7 +83,8 @@ class HandlebarsService {
    *   The relative path.
    */
   protected function getRelativePath($uri) {
-    return file_url_transform_relative(file_create_url($uri));
+    $url = $this->fileUrlGenerator->generateString($uri);
+    return $this->fileUrlGenerator->transformRelative($url);
   }
 
   /**
