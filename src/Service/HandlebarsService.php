@@ -2,11 +2,11 @@
 
 namespace Drupal\handlebars\Service;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 Use \Drupal\Core\File\FileUrlGeneratorInterface;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Service for Handlebars templates.
@@ -232,13 +232,11 @@ class HandlebarsService {
     // Get Translation strings.
     $strings = $this->scanTranslatableStrings($contents);
 
-    // Use precompiled handlebar templates if js is preprocessed.
-    $optimize_js = $this->configFactory->get('system.performance')->get('js.preprocess');
-    if ($optimize_js) {
+    // Check if we can use precompiled handlebar templates.
+    if ($this->preCompileEnabled()) {
       $path = str_replace(["handlebars/", ".handlebars"], ["dist/", '.js'], $path);
       $script = file_get_contents("$module_path/$path");
       $script .= "\n// $strings\n";
-
       return $script;
     }
 
@@ -292,4 +290,49 @@ class HandlebarsService {
     }
   }
 
+  /**
+   * Checks if the setting to precompile templates is enabled.
+   *
+   * @return bool
+   *   True if precompile is enabled.
+   */
+  public function preCompileEnabled() {
+    // @todo: Create this config + schema + Admin form.
+    $precompile = \Drupal::config('handlebars.settings')->get('precompile');
+    $js_preprocess = \Drupal::config('system.performance')->get('js.preprocess');
+
+    return ($precompile && $js_preprocess);
+  }
+
+  /**
+   * Used to pre-compile Handlebars templates.
+   * @todo: Call this function when Caches are cleared
+   *    AND the handlebars compiler is available in the .bin folder
+   */
+  public function preCompileHandlebars() {
+    if (!$this->preCompileEnabled()) {
+      return;
+    }
+
+    // Find handlebar templates.
+    $finder = new Finder();
+    $finder->name('*.handlebars');
+    $finder->in(DRUPAL_ROOT . '/modules');
+    $finder->in(DRUPAL_ROOT . '/profiles');
+
+    // Execute pre-compile command in all folders.
+    foreach ($finder as $file) {
+      // Prepare directory.
+      $dist_dir = $this->fileUrlGenerator->generateString($this::HANDLEBARS_JS_DIR . '/dist');
+      if (!file_exists($dist_dir)) {
+        $this->fileSystem->prepareDirectory($dist_dir, FileSystemInterface::CREATE_DIRECTORY);
+      }
+
+      $docroot = DRUPAL_ROOT;
+      $real_filename = $file->getRealPath();
+      shell_exec("cd $docroot &&
+        ./modules/contrib/handlebars/node_modules/.bin/handlebars $real_filename -f $dist_dir -n window.HandlebarsTemplates"
+      );
+    }
+  }
 }

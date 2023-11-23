@@ -52,6 +52,6 @@ function handlebars_page_attachments_alter(array &$attachments) {
 
   // Add drupalSettings.
   $attachments['#attached']['drupalSettings']['Handlebars'] = [
-    'compiledHandlebars' => \Drupal::config('system.performance')->get('js.preprocess'),
+    'compiledHandlebars' => $handlebars_service->preCompileEnabled(),
   ];
 }
