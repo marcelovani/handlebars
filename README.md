@@ -73,6 +73,7 @@ i.e. my_partial.handlebars
   - You can use `{{log this }}` to list all variables in the Console.
 
 # Todo
+- Test aggregated js
 - Handlebars  - Twig for Js
 - Add Loades
 - Provide use cases
