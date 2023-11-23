@@ -3,5 +3,6 @@ services:
     class: Drupal\handlebars\Service\HandlebarsService
     arguments:
       - '@file_system'
+      - '@file_url_generator'
       - '@module_handler'
       - '@config.factory'

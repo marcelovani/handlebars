@@ -204,7 +204,7 @@ class HandlebarsService {
    */
   protected function generateScript($extension, $id, $path) {
     // Load template.
-    $module_path = drupal_get_path('module', $extension);
+    $module_path = $this->moduleHandler->getModule($extension)->getPath();
     $contents = file_get_contents("$module_path/$path");
 
     // Get Translation strings.
