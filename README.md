@@ -13,11 +13,15 @@ to attach libraries to the entity, see handlebars.api.php. i.e.
 /**
  * Implements hook_handlebars_templates().
  */
-function hook_handlebars_templates(\Drupal\Core\Entity\EntityInterface $entity) {
-  // List of handlebars libraries to be attached to the entity.
-  return [
-    'article.block.foo' => 'my_module_name',
-  ];
+function hook_handlebars_templates($context) {
+  // List of handlebars libraries to be attached to the entity based on context.
+  if ($context instanceof \Drupal\Core\Entity\EntityInterface && $context->bundle() !== 'page') {
+    return [
+      'article.block.foo' => 'my_module_name',
+    ];
+  }
+
+  return [];
 }
 ```
 
@@ -29,8 +33,9 @@ example.libraries.yml
 article.block.foo:
   version: 1.x
   js:
-    handlebars/article.block.foo.handlebars: { }
+    `templates/article.block.foo.handlebars: { }
 ```
+@todo add details about the contents of templates/article.block.foo.handlebars.
 
 The next step is to call the renderer, passing the path to the object and data i.e.
 
@@ -70,4 +75,9 @@ i.e. my_partial.handlebars
 # Todo
 - Provide use cases
 - Document Helpers shipped with the module
+- Document how to create new Helpers
 - Document how to alter and compile js
+- Add Example modules
+- Find a way to automate the library association without hook_handlebars_templates()
+- Explain how to use compiled version of handlebars
+-
