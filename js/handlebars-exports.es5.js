@@ -35,7 +35,7 @@ function handlebarsRender(id, data) {
 
   // Get the source/pre-compiled template.
   const template = templates[id];
-  if (!Drupal.hasValue(template)) {
+  if (typeof template !== 'string') {
     throw new Error("HandlebarJS template not found for id:." + id);
   }
   if (drupalSettings.Handlebars.compiledHandlebars) {
