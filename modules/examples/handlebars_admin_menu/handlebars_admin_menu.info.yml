@@ -1,0 +1,8 @@
+name: "Handlebars examples: Admin menu"
+type: module
+description: Example of using Handlebars to render decoupled admin menus
+core_version_requirement: ^10
+dependencies:
+  - handlebars:handlebars
+  - restui:restui
+  - rest_menu_items:rest_menu_items
