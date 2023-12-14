@@ -133,7 +133,7 @@ function handlebarsRender(id, data) {
   if (typeof template !== 'string') {
     throw new Error("HandlebarJS template not found for id:." + id);
   }
-  if (drupalSettings.Handlebars.compiledHandlebars) {
+  if (drupalSettings.Handlebars && drupalSettings.Handlebars.compiledHandlebars) {
     return template(data);
   }
 
