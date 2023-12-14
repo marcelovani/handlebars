@@ -1,0 +1,22 @@
+main:
+  js:
+    js/admin_menu.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - handlebars_admin_menu/helpers
+    - handlebars_admin_menu/menu
+
+  css:
+    theme:
+      css/admin_menu.css: { }
+
+helpers:
+  js:
+    js/handlebars_helpers.js: { }
+
+menu:
+  version: 1.x
+  type: handlebars_template
+  js:
+    handlebars/menu.handlebars: { }

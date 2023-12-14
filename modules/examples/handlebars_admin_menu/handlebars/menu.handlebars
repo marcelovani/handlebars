@@ -1,0 +1,27 @@
+{{log this}}
+<div class="toolbar-tray toolbar-tray-horizontal is-active" data-offset-top="" data-toolbar-tray="toolbar-item-administration-tray" id="toolbar-item-administration-tray">
+    <nav aria-label="Administration menu" class="toolbar-lining clearfix" role="navigation">
+        <h3 class="toolbar-tray-name visually-hidden">Administration menu</h3>
+        <div class="toolbar-menu-administration">
+            <ul class="toolbar-menu claro-toolbar-menu">
+                {{!-- Loop items --}}
+                {{#each this.below as | menuItem | }}
+                <li class="menu-item menu-item--collapsed">
+                    {{!-- Call 'id' helper to convert the key into CSS id --}}
+                    <a class="toolbar-icon toolbar-icon-{{id menuItem.key }}" data-drupal-link-system-path="{{ menuItem.alias }}"
+                      href="/{{ menuItem.alias }}"
+                      id="toolbar-link-{{id menuItem.key }}"
+                      title="{{ menuItem.description }}">{{ menuItem.title }}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="toolbar-toggle-orientation">
+            <div class="toolbar-lining">
+                <button class="toolbar-icon toolbar-icon-toggle-vertical" title="Vertical orientation" type="button"
+                        value="vertical">Vertical orientation
+                </button>
+            </div>
+        </div>
+    </nav>
+</div>
