@@ -155,6 +155,7 @@ class HandlebarsService {
     /** @var \Drupal\Core\Asset\LibraryDiscovery $library_discovery_service */
     // @todo Inject this
     $library_discovery_service = \Drupal::service('library.discovery');
+    $handlebars_libraries = [];
 
     // Populate Handlebars libraries.
     foreach ($this->moduleHandler->getModuleList() as $extension) {
