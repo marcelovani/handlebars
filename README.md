@@ -42,8 +42,8 @@ let data = {
 var html = handlebarsRenderer.render('article.block.foo', data);
 
 // Update the container with the rendered content.
-var el = document.getElementsByID("container");
-container.innerHTML = html;
+var el = document.getElementById("container");
+el.innerHTML = html;
 ```
 
 ### Partials
