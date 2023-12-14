@@ -77,20 +77,16 @@ Will output
   - You can use `{{log this }}` to list all variables in the Console.
 
 # Todo
-- compare with implementation and installation as D7 module
-- Test if partials is working.
+- Handlebars: Twig for Js
+- Test if partials are working.
 - Test aggregated js
-- Handlebars  - Twig for Js
 - Add Loaders
-- Add test cases
-- Provide use cases
-- Document Helpers shipped with the module
 - Document how to create new Helpers
 - Document how to alter and compile js
+- Add test cases
+- Provide use cases
 - Add Example modules - connecting to local or remote js i.e. Amazon or Algolia
   - https://paramountshop.com/collections/all.atom
   - https://colourpop.com/collections/all.atom
   - https://sewingmachinecentre.nz/collections/all.atom
   - https://wisepops.com/blog/shopify-stores
-- Find a way to automate the library association without hook_handlebars_templates()
-- Explain how to use compiled version of handlebars
