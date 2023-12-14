@@ -81,6 +81,7 @@ Will output
 - Test if partials are working.
 - Test aggregated js
 - Add Loaders
+- Document shipped Helpers
 - Document how to create new Helpers
 - Document how to alter and compile js
 - Add test cases

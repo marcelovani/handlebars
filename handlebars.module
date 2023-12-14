@@ -38,9 +38,10 @@ function handlebars_library_info_alter(&$libraries, $extension) {
  */
 function handlebars_page_attachments_alter(array &$attachments) {
   // Avoid attaching libraries on admin themes.
-  // @todo make this configurable.
-  if (\Drupal::theme()->getActiveTheme()->getName()
-    !== \Drupal::config('system.theme')->get('default')
+  // @todo Create admin form for this configuration.
+  // @todo Create schema for configs.
+  if (\Drupal::config('handlebars.settings')->get('exclude_admin_pages') === TRUE
+    && \Drupal::theme()->getActiveTheme()->getName() !== \Drupal::config('system.theme')->get('default')
   ) {
     return;
   }
