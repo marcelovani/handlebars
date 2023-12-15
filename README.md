@@ -86,8 +86,4 @@ Will output
 - Document how to alter and compile js
 - Add test cases
 - Provide use cases
-- Add Example modules - connecting to local or remote js i.e. Amazon or Algolia
-  - https://paramountshop.com/collections/all.atom
-  - https://colourpop.com/collections/all.atom
-  - https://sewingmachinecentre.nz/collections/all.atom
-  - https://wisepops.com/blog/shopify-stores
+
