@@ -1,0 +1,45 @@
+{{log this}}
+<div class="product-feed">
+    <h2>Products slider</h2>
+    <div class="slider">
+        <ul class="list slides">
+            {{#each this.entry as | item index | }}
+            <li id="slide-{{ index }}" class="item slide {{ index }}">
+                <span class="teaser">{{{ item.summary.__cdata }}}</span>
+
+                <span class="label sku">SKU:&nbsp;</span>
+                <span class="value sku">{{ item.variant.sku.__text }}</span>
+
+                <span class="label link">Link:&nbsp;</span>
+                <span class="value link">
+                    <a data-id="{{ item.id }}" href="{{ item.link._href }}" title="{{ item.title }}">{{ item.title }}</a>
+                </span>
+
+                <span class="label tags">Tags:</span>
+                <span class="value tags">
+                    <ul class="tags">
+                    {{#each item.tag as | tag tagIndex | }}
+                        {{!-- Skip first tag, limit to 3 tags --}}
+                        {{#if (and
+                            (gt tagIndex 0)
+                            (lt tagIndex 4))
+                        }}
+                        <li class="item">
+                            <span class="tag">{{ tag.__text}}</span>
+                        </li>
+                        {{/if}}
+                    {{/each}}
+                    </ul>
+                </span>
+            </li>
+            {{/each}}
+        </ul>
+
+        {{!-- Add pager --}}
+        <div class="pager">
+        {{#each this.entry as | item index | }}
+            <a href="#slide-{{ index }}">{{ index }}</a>
+        {{/each}}
+        </div>
+    </div>
+</div>

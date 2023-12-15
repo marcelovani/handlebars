@@ -1,0 +1,6 @@
+name: "Handlebars examples: Commerce"
+type: module
+description: Example of using Handlebars plug in to a live product feed
+core_version_requirement: ^10
+dependencies:
+  - handlebars:handlebars

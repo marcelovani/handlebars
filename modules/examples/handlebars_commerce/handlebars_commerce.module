@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function handlebars_commerce_page_attachments_alter(array &$attachments) {
+  // Attach handlebars template to every page.
+  $attachments['#attached']['library'][] = 'handlebars_commerce/main';
+}

@@ -1,0 +1,113 @@
+.product-feed .list li.item {
+    list-style-type: none;
+    display: block;
+    float: left;
+    margin: 0 8px;
+    padding: 5px;
+}
+
+.product-feed .list li.item table,
+.product-feed .list li.item th,
+.product-feed .list li.item td {
+    border: none;
+}
+
+.product-feed span.sku,
+.product-feed span.tags,
+.product-feed span.link,
+.product-feed .item a {
+    float: left;
+    display: block;
+}
+
+.product-feed span.label.sku,
+.product-feed span.label.tags,
+.product-feed span.label.link {
+    clear: left;
+}
+
+.product-feed ul.tags {
+    margin: 0;
+}
+
+.product-feed ul.tags li.item {
+    width: auto;
+    float: left;
+    margin-right: 2px;
+    padding: 0;
+}
+
+.teaser {
+    float: left;
+    display: block;
+    width: 450px;
+    max-height: 535px;
+    overflow: hidden;
+}
+
+.slider {
+    width: 850px;
+    margin: 0 auto;
+}
+
+.slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    /*
+    scroll-snap-points-x: repeat(300px);
+    scroll-snap-type: mandatory;
+    */
+}
+
+.slides::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+.slides::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+}
+.slides::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.slides > li {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    margin-right: 50px;
+    border-radius: 10px;
+    background: #f1e1ab;
+    transform-origin: center center;
+    transform: scale(1);
+    transition: transform 0.5s;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+.slides > li:target {
+   /*transform: scale(0.8);*/
+}
+.pager > a {
+    display: inline-flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: white;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 0 0.5rem 0;
+    position: relative;
+}
+.pager > a:active,
+.pager > a:hover {
+    top: 1px;
+    background: #000;
+}
+.pager > a:focus {
+    background: #000;
+}
