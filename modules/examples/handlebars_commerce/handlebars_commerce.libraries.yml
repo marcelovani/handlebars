@@ -10,12 +10,10 @@ main:
     theme:
       css/commerce.css: { }
 
-helpers:
-  js:
-    js/handlebars_helpers.js: { }
-
 commerce.products:
   version: 1.x
   type: handlebars_template
   js:
     handlebars/commerce.products.handlebars: { }
+  dependencies:
+    - handlebars/main

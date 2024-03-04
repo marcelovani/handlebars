@@ -4,7 +4,6 @@ main:
   dependencies:
     - core/drupal
     - core/jquery
-    - handlebars_admin_menu/helpers
     - handlebars_admin_menu/menu
 
   css:
@@ -20,3 +19,6 @@ menu:
   type: handlebars_template
   js:
     handlebars/menu.handlebars: { }
+  dependencies:
+    - handlebars/main
+    - handlebars_admin_menu/helpers
